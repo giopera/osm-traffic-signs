@@ -14,15 +14,19 @@ const trafficLayer = L.layerGroup().addTo(map);
 const overpassEndpoint = 'https://overpass-api.de/api/interpreter';
 
 function parseTrafficSign(value) {
-  const text = String(value).trim();
-  const match = text.match(/^IT:(?:'([^']+)'|([^\[]]+))(?:\[(.*?)\])?$/i);
-  if (!match) return null;
+  const tags = String(value).trim().split(';');
+  const result = [];
+  tags.forEach(tag => {
+    const match = tag.match(/^IT:([^\[]+)(?:\[(.*?)\])?$/i);
+    if (!match) return;
 
-  return {
-    country: 'IT',
-    code: (match[1] || match[2]).trim(),
-    value: match[3] || null,
-  };
+    result.push({
+      country: 'IT',
+      code: match[1].trim(),
+      value: match[2] ? match[2].trim() : null,
+    });
+  });
+  return result;
 }
 
 function escapeHtml(value) {
@@ -63,18 +67,41 @@ function createSignSvg(definition, value) {
   return svg.replace(/{value}/g, '');
 }
 
-function createMarkerIcon(signTag) {
-  const parsed = parseTrafficSign(signTag);
-  const definition = parsed && signDefinitions[parsed.code];
-  const svg = createSignSvg(definition, parsed?.value);
-  const iconUrl = buildSvgDataUrl(svg);
+function createMarkerIcon(parsedSigns) {
+  // Ensure we are working with an array even if a single object is passed
+  const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
 
-  return L.icon({
-    iconUrl,
-    iconSize: [52, 52],
-    iconAnchor: [26, 26],
-    popupAnchor: [0, -26],
+  const baseUrl = '/images/';
+
+  // Build HTML string containing an <img> for each parsed sign
+  const imagesHtml = signs
+    .map((sign) => {
+      const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
+
+      // Optional: If sign has a value (e.g. [30]), render a sub-badge or text overlay
+      const valueHtml = sign.value
+        ? `<span class="sign-value-badge">${sign.value}</span>`
+        : '';
+
+      return `
+        <div class="sign-wrapper">
+          <img src="${iconUrl}" alt="${sign.code}" class="traffic-sign-img" />
+          ${valueHtml}
+        </div>
+      `;
+    })
+    .join('');
+
+  const signCount = signs.length;
+  const singleSignHeight = 52;
+  const totalHeight = singleSignHeight * signCount;
+
+  return L.divIcon({
+    html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
+    iconSize: [52, totalHeight],
+    iconAnchor: [26, totalHeight / 2], // Centers the marker anchor
+    popupAnchor: [0, -totalHeight / 2],
   });
 }
 
@@ -131,7 +158,7 @@ function renderTrafficSigns(elements) {
     const signTag = element.tags.traffic_sign;
     const parsed = parseTrafficSign(signTag);
     const marker = L.marker(coords, {
-      icon: createMarkerIcon(signTag),
+      icon: createMarkerIcon(parsed),
       title: parsed?.code || 'Traffic sign',
     }).addTo(trafficLayer);
 
@@ -154,7 +181,9 @@ function updateTrafficSigns() {
   if (!signDefinitions || Object.keys(signDefinitions).length === 0) {
     return;
   }
-
+  if (map.getZoom() < 15) {
+    return;
+  }
   const bounds = map.getBounds();
   fetchOverpassSigns(bounds)
     .then((data) => {
