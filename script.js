@@ -102,8 +102,8 @@ function createMarkerIcon(parsedSigns) {
   return L.divIcon({
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
-    iconSize: [5, totalHeight],
-    iconAnchor: [2.5, totalHeight],
+    iconSize: [2, totalHeight],
+    iconAnchor: [1, totalHeight],
     popupAnchor: [0, -totalHeight],
   });
 }
