@@ -96,14 +96,14 @@ function createMarkerIcon(parsedSigns) {
     .join('');
 
   const signCount = signs.length;
-  const singleSignHeight = 10;
+  const singleSignHeight = 5;
   const totalHeight = singleSignHeight * signCount;
 
   return L.divIcon({
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
-    iconSize: [10, totalHeight],
-    iconAnchor: [5, totalHeight],
+    iconSize: [5, totalHeight],
+    iconAnchor: [2.5, totalHeight],
     popupAnchor: [0, -totalHeight],
   });
 }
@@ -119,6 +119,7 @@ function getElementLatLng(element) {
 }
 
 function fetchOverpassSigns(bounds) {
+  // TODO: Caching
   const bbox = [bounds.getSouth(), bounds.getWest(), bounds.getNorth(), bounds.getEast()].join(',');
   const query = `
 [out:json][timeout:25];
