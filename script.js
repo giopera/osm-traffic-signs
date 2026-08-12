@@ -14,12 +14,14 @@ const trafficLayer = L.layerGroup().addTo(map);
 const overpassEndpoint = 'https://overpass-api.de/api/interpreter';
 
 function parseTrafficSign(value) {
-  const match = String(value).match(/^IT:'([^']+)'(?:\[(.*?)\])?$/i);
+  const text = String(value).trim();
+  const match = text.match(/^IT:(?:'([^']+)'|([^\[]]+))(?:\[(.*?)\])?$/i);
   if (!match) return null;
+
   return {
     country: 'IT',
-    code: match[1],
-    value: match[2] || null,
+    code: (match[1] || match[2]).trim(),
+    value: match[3] || null,
   };
 }
 
