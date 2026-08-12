@@ -14,6 +14,12 @@ const trafficLayer = L.layerGroup().addTo(map);
 const overpassEndpoint = 'https://overpass.private.coffee/api/interpreter';
 const hash = new L.Hash(map);
 
+let isFetchingOverpass = false;
+let pendingOverpassBounds = null;
+// Element store and cache: keep latest elements by OSM id and cache positive bbox results.
+const elementStore = new Map(); // key: `${type}-${id}` => element
+const overpassCache = []; // entries: { bounds: L.LatLngBounds, keys: Set<string> }
+
 function parseTrafficSign(value) {
   const tags = String(value).trim().split(';');
   const result = [];
@@ -69,22 +75,14 @@ function createSignSvg(definition, value) {
 }
 
 function createMarkerIcon(parsedSigns) {
-  // Ensure we are working with an array even if a single object is passed
   const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
 
   const baseUrl = '/images/';
 
-  // Build HTML string containing an <img> for each parsed sign
   const imagesHtml = signs
     .map((sign) => {
       const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
 
-      // Optional: If sign has a value (e.g. [30]), render a sub-badge or text overlay
-      /*
-      const valueHtml = sign.value
-        ? `<span class="sign-value-badge">${sign.value}</span>`
-        : '';
-      */
       const valueHtml = '';
       return `
         <div class="sign-wrapper">
@@ -181,23 +179,76 @@ function renderTrafficSigns(elements) {
   });
 }
 
-function updateTrafficSigns() {
+function updateTrafficSigns(boundsParam) {
   if (!signDefinitions || Object.keys(signDefinitions).length === 0) {
     return;
   }
   if (map.getZoom() < 15) {
     return;
   }
-  const bounds = map.getBounds();
+
+  const bounds = (boundsParam && typeof boundsParam.getSouth === 'function')
+    ? boundsParam
+    : map.getBounds();
+
+  // Check cache first: if we have a cached bbox that fully contains
+  // the requested bounds, use cached elements (filtered to the
+  // requested bounds) and skip Overpass.
+  const cacheEntry = overpassCache.find((entry) => entry.bounds.contains(bounds));
+  if (cacheEntry) {
+    const cachedElements = [];
+    cacheEntry.keys.forEach((key) => {
+      const el = elementStore.get(key);
+      if (!el) return;
+      const coords = getElementLatLng(el);
+      if (!coords) return;
+      if (bounds.contains(L.latLng(coords[0], coords[1]))) {
+        cachedElements.push(el);
+      }
+    });
+    renderTrafficSigns(cachedElements);
+    return;
+  }
+
+  if (isFetchingOverpass) {
+    pendingOverpassBounds = bounds;
+    return;
+  }
+
+  isFetchingOverpass = true;
   fetchOverpassSigns(bounds)
     .then((data) => {
       if (!Array.isArray(data.elements)) {
         return;
       }
-      renderTrafficSigns(data.elements);
+
+      const elements = data.elements;
+      if (elements.length > 0) {
+        // Update elementStore with latest elements (deduplicate by type-id)
+        const keys = [];
+        elements.forEach((el) => {
+          const key = `${el.type}-${el.id}`;
+          elementStore.set(key, el);
+          keys.push(key);
+        });
+
+        // Save cache entry for these bounds
+        overpassCache.push({ bounds: bounds.clone(), keys: new Set(keys) });
+      }
+
+      renderTrafficSigns(elements);
     })
     .catch((error) => {
       console.warn('Unable to load traffic sign markers from Overpass:', error);
+    })
+    .finally(() => {
+      isFetchingOverpass = false;
+      if (pendingOverpassBounds) {
+        const nextBounds = pendingOverpassBounds;
+        pendingOverpassBounds = null;
+        // Trigger the next fetch for the most recent bounds.
+        updateTrafficSigns(nextBounds);
+      }
     });
 }
 
