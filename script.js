@@ -191,10 +191,14 @@ function updateTrafficSigns(boundsParam) {
     ? boundsParam
     : map.getBounds();
 
+  // Normalize requested bounds to a Leaflet LatLngBounds instance to
+  // ensure methods like `contains` and `clone` are available.
+  const reqBounds = L.latLngBounds(bounds);
+
   // Check cache first: if we have a cached bbox that fully contains
   // the requested bounds, use cached elements (filtered to the
   // requested bounds) and skip Overpass.
-  const cacheEntry = overpassCache.find((entry) => entry.bounds.contains(bounds));
+  const cacheEntry = overpassCache.find((entry) => entry.bounds.contains(reqBounds));
   if (cacheEntry) {
     const cachedElements = [];
     cacheEntry.keys.forEach((key) => {
@@ -202,7 +206,7 @@ function updateTrafficSigns(boundsParam) {
       if (!el) return;
       const coords = getElementLatLng(el);
       if (!coords) return;
-      if (bounds.contains(L.latLng(coords[0], coords[1]))) {
+      if (reqBounds.contains(L.latLng(coords[0], coords[1]))) {
         cachedElements.push(el);
       }
     });
@@ -211,7 +215,7 @@ function updateTrafficSigns(boundsParam) {
   }
 
   if (isFetchingOverpass) {
-    pendingOverpassBounds = bounds;
+    pendingOverpassBounds = reqBounds;
     return;
   }
 
@@ -233,7 +237,7 @@ function updateTrafficSigns(boundsParam) {
         });
 
         // Save cache entry for these bounds
-        overpassCache.push({ bounds: bounds.clone(), keys: new Set(keys) });
+        overpassCache.push({ bounds: reqBounds.clone(), keys: new Set(keys) });
       }
 
       renderTrafficSigns(elements);
