@@ -1,0 +1,1568 @@
+{
+  "IT:II.5": {
+    "figura": "II.5",
+    "name": "Curva a sinistra",
+    "english": "Dangerous bend (to the left)",
+    "tags": "hazard=curve"
+  },
+  "IT:II.4": {
+    "figura": "II.4",
+    "name": "Curva a destra",
+    "english": "Dangerous bend (to the right)",
+    "tags": "hazard=curve"
+  },
+  "IT:II.7": {
+    "figura": "II.7",
+    "name": "Doppia curva, la prima a sinistra",
+    "english": "Dangerous double bend (the first to the left)",
+    "tags": "hazard=curves"
+  },
+  "IT:II.6": {
+    "figura": "II.6",
+    "name": "Doppia curva, la prima a destra",
+    "english": "Dangerous double bend (the first to the right)",
+    "tags": "hazard=curves"
+  },
+  "IT:II.15": {
+    "figura": "II.15",
+    "name": "Discesa pericolosa",
+    "english": "Dangerous descent",
+    "tags": "incline=*"
+  },
+  "IT:II.16": {
+    "figura": "II.16",
+    "name": "Salita ripida",
+    "english": "Dangerous ascent",
+    "tags": "incline=*"
+  },
+  "IT:II.17": {
+    "figura": "II.17",
+    "name": "Strettoia simmetrica",
+    "english": "Carriageway narrows (both sides)",
+    "tags": "narrow=yes, traffic_calming=chicane o traffic_calming=choker"
+  },
+  "IT:II.19": {
+    "figura": "II.19",
+    "name": "Strettoia asimmetrica a destra",
+    "english": "Carriageway narrows (right side)",
+    "tags": "narrow=yes, traffic_calming=chicane o traffic_calming=choker"
+  },
+  "IT:II.18": {
+    "figura": "II.18",
+    "name": "Strettoia asimmetrica a sinistra",
+    "english": "Carriageway narrows (left side)",
+    "tags": ""
+  },
+  "IT:II.1": {
+    "figura": "II.1",
+    "name": "Strada deformata",
+    "english": "Uneven road",
+    "tags": ""
+  },
+  "IT:II.2": {
+    "figura": "II.2",
+    "name": "Dosso",
+    "english": "Hump in road",
+    "tags": "traffic_calming=bump, traffic_calming=hump, traffic_calming=table, traffic_calming=cushion, hazard=bump"
+  },
+  "IT:II.3": {
+    "figura": "II.3",
+    "name": "Cunetta",
+    "english": "Dip in road",
+    "tags": "hazard=dip"
+  },
+  "IT:II.22": {
+    "figura": "II.22",
+    "name": "Strada sdrucciolevole",
+    "english": "Slippery road",
+    "tags": "hazard=slippery"
+  },
+  "IT:II.26": {
+    "figura": "II.26",
+    "name": "Doppio senso di circolazione",
+    "english": "Two-way traffic",
+    "tags": "oneway=no"
+  },
+  "IT:II.31a": {
+    "figura": "II.31a",
+    "name": "Semaforo",
+    "english": "Light signals (vertical)",
+    "tags": "highway=traffic_signals"
+  },
+  "IT:II.31b": {
+    "figura": "II.31b",
+    "name": "Semaforo",
+    "english": "Light signals (horizontal)",
+    "tags": "highway=traffic_signals"
+  },
+  "IT:II.13": {
+    "figura": "II.13",
+    "name": "Attraversamento pedonale",
+    "english": "Pedestrian crossing",
+    "tags": "highway=crossing e crossing_ref=zebra"
+  },
+  "IT:II.23": {
+    "figura": "II.23",
+    "name": "Bambini",
+    "english": "Children",
+    "tags": "hazard=children"
+  },
+  "IT:II.24": {
+    "figura": "II.24",
+    "name": "Animali domestici vaganti",
+    "english": "Cattle crossing",
+    "tags": "hazard=animal_crossing + hazard:animal=livestock"
+  },
+  "IT:II.25": {
+    "figura": "II.25",
+    "name": "Animali selvatici vaganti",
+    "english": "Wildlife crossing",
+    "tags": "hazard=animal_crossing + hazard:animal=wild_animal"
+  },
+  "IT:II.33": {
+    "figura": "II.33",
+    "name": "Forte vento laterale",
+    "english": "Cross-wind",
+    "tags": "hazard=side_winds"
+  },
+  "IT:II.21": {
+    "figura": "II.21",
+    "name": "Banchina cedevole",
+    "english": "Dangerous shoulder",
+    "tags": ""
+  },
+  "IT:II.34": {
+    "figura": "II.34",
+    "name": "Pericolo di incendio",
+    "english": "Danger of wildfires",
+    "tags": ""
+  },
+  "IT:II.29": {
+    "figura": "II.29",
+    "name": "Materiale instabile",
+    "english": "Loose gravel",
+    "tags": "hazard=loose_gravel"
+  },
+  "IT:II.30a": {
+    "figura": "II.30a",
+    "name": "Caduta massi",
+    "english": "Falling rocks",
+    "tags": "hazard=falling_rocks"
+  },
+  "IT:II.30b": {
+    "figura": "II.30b",
+    "name": "Caduta massi",
+    "english": "Falling rocks",
+    "tags": "hazard=falling_rocks"
+  },
+  "IT:II.14": {
+    "figura": "II.14",
+    "name": "Attraversamento ciclabile",
+    "english": "Cyclists entering or crossing",
+    "tags": "hazard=cyclists"
+  },
+  "IT:II.32": {
+    "figura": "II.32",
+    "name": "Aeromobili",
+    "english": "Airfield",
+    "tags": ""
+  },
+  "IT:II.27": {
+    "figura": "II.27",
+    "name": "Circolazione Rotatoria",
+    "english": "Roundabout ahead",
+    "tags": "junction=roundabout"
+  },
+  "IT:II.35": {
+    "figura": "II.35",
+    "name": "Altri pericoli",
+    "english": "Other dangers",
+    "tags": ""
+  },
+  "IT:II.12": {
+    "figura": "II.12",
+    "name": "Attraversamento tranviario",
+    "english": "Intersection with a tramway line",
+    "tags": ""
+  },
+  "IT:II.28": {
+    "figura": "II.28",
+    "name": "Sbocco su molo o su argine",
+    "english": "Road leads on to quay or river bank",
+    "tags": ""
+  },
+  "IT:II.8": {
+    "figura": "II.8",
+    "name": "Passaggio a livello con barriere",
+    "english": "Level-crossings with gates",
+    "tags": "railway=level_crossing e crossing:barrier=yes"
+  },
+  "IT:II.9": {
+    "figura": "II.9",
+    "name": "Passaggio a livello senza barriere",
+    "english": "Other level-crossings",
+    "tags": "railway=level_crossing e crossing:barrier=no"
+  },
+  "IT:II.10a": {
+    "figura": "II.10a",
+    "name": "Croce di Sant'Andrea",
+    "english": "Single-rail level-crossing",
+    "tags": ""
+  },
+  "IT:II.10b": {
+    "figura": "II.10b",
+    "name": "Doppia croce di Sant'Andrea",
+    "english": "Multi-rail level-crossing",
+    "tags": ""
+  },
+  "IT:II.11a": {
+    "figura": "II.11a",
+    "name": "Pannello distanziometrico",
+    "english": "Advanced sign (150 m)",
+    "tags": ""
+  },
+  "IT:II.11b": {
+    "figura": "II.11b",
+    "name": "Pannello distanziometrico",
+    "english": "Advanced sign (100 m)",
+    "tags": ""
+  },
+  "IT:II.11c": {
+    "figura": "II.11c",
+    "name": "Pannello distanziometrico",
+    "english": "Advanced sign (50 m)",
+    "tags": ""
+  },
+  "IT:II.20": {
+    "figura": "II.20",
+    "name": "Ponte mobile",
+    "english": "Movable bridge",
+    "tags": "bridge=movable"
+  },
+  "IT:II.36": {
+    "figura": "II.36",
+    "name": "Dare precedenza",
+    "english": "Give way",
+    "tags": "highway=give_way"
+  },
+  "IT:II.37": {
+    "figura": "II.37",
+    "name": "Fermarsi e dare precedenza",
+    "english": "Stop",
+    "tags": "Questo cartello ha un valore standardizzato leggibile dagli umani, che è quindi preferibile: traffic_sign=stop. Aggiungete inoltre highway=stop sulla highway."
+  },
+  "IT:II.38": {
+    "figura": "II.38",
+    "name": "Preavviso di dare precedenza",
+    "english": "Advance warning of give way",
+    "tags": ""
+  },
+  "IT:II.39": {
+    "figura": "II.39",
+    "name": "Preavviso di fermarsi e dare precedenza",
+    "english": "Advance warning of stop",
+    "tags": ""
+  },
+  "IT:II.40": {
+    "figura": "II.40",
+    "name": "Intersezione con precedenza a destra",
+    "english": "Intersection with general priority ahead",
+    "tags": ""
+  },
+  "IT:II.41": {
+    "figura": "II.41",
+    "name": "Dare precedenza nei sensi unici alternati",
+    "english": "Oncoming traffic has priority",
+    "tags": "priority=*"
+  },
+  "IT:II.42": {
+    "figura": "II.42",
+    "name": "Fine del diritto di precedenza",
+    "english": "End of priority road",
+    "tags": "priority_road=*"
+  },
+  "IT:II.43a": {
+    "figura": "II.43a",
+    "name": "Intersezione con diritto di precedenza",
+    "english": "Intersection with a road the users of which must give way",
+    "tags": ""
+  },
+  "IT:II.43b": {
+    "figura": "II.43b",
+    "name": "Intersezione a \"T\" con diritto di precedenza",
+    "english": "Intersection with a road the users of which must give way",
+    "tags": ""
+  },
+  "IT:II.43c": {
+    "figura": "II.43c",
+    "name": "Intersezione a \"T\" con diritto di precedenza",
+    "english": "Intersection with a road the users of which must give way",
+    "tags": ""
+  },
+  "IT:II.43d": {
+    "figura": "II.43d",
+    "name": "Confluenza a destra",
+    "english": "Intersection with a road the users of which must give way",
+    "tags": ""
+  },
+  "IT:II.43e": {
+    "figura": "II.43e",
+    "name": "Confluenza a sinistra",
+    "english": "Intersection with a road the users of which must give way",
+    "tags": ""
+  },
+  "IT:II.44": {
+    "figura": "II.44",
+    "name": "Diritto di precedenza",
+    "english": "Priority road",
+    "tags": "priority_road=*"
+  },
+  "IT:II.45": {
+    "figura": "II.45",
+    "name": "Diritto di precedenza nei sensi unici alternati",
+    "english": "Priority over oncoming traffic",
+    "tags": "priority=*"
+  },
+  "IT:II.46": {
+    "figura": "II.46",
+    "name": "Divieto di transito",
+    "english": "Closed to all vehicles in both directions",
+    "tags": "vehicle=no"
+  },
+  "IT:II.47": {
+    "figura": "II.47",
+    "name": "Senso vietato",
+    "english": "No entry",
+    "tags": "oneway=yes"
+  },
+  "IT:II.48": {
+    "figura": "II.48",
+    "name": "Divieto di sorpasso",
+    "english": "Prohibition of overtaking",
+    "tags": "overtaking=no"
+  },
+  "IT:II.49": {
+    "figura": "II.49",
+    "name": "Distanziamento minimo obbligatorio",
+    "english": "Minimum distance between vehicles",
+    "tags": "mindistance=*"
+  },
+  "IT:II.50": {
+    "figura": "II.50",
+    "name": "Limite massimo di velocità",
+    "english": "Speed limit",
+    "tags": "maxspeed=* + source:maxspeed=sign + maxspeed:type=sign"
+  },
+  "IT:II.51": {
+    "figura": "II.51",
+    "name": "Divieto di segnalazioni acustiche",
+    "english": "Prohibition of the use of audible warning devices",
+    "tags": "honking=no"
+  },
+  "IT:II.52": {
+    "figura": "II.52",
+    "name": "Divieto di sorpasso per i veicoli di massa a pieno carico superiore a 3,5 tonnellate",
+    "english": "Prohibition of overtaking for trucks",
+    "tags": "overtaking:hgv=no"
+  },
+  "IT:II.53": {
+    "figura": "II.53",
+    "name": "Transito vietato ai veicoli a trazione animale",
+    "english": "No entry for animal-powered vehicles",
+    "tags": "carriage=no"
+  },
+  "IT:II.54": {
+    "figura": "II.54",
+    "name": "Transito vietato ai pedoni",
+    "english": "No entry for pedestrians",
+    "tags": "foot=no"
+  },
+  "IT:II.55": {
+    "figura": "II.55",
+    "name": "Transito vietato alle biciclette",
+    "english": "No entry for bicycles",
+    "tags": "bicycle=no"
+  },
+  "IT:II.56": {
+    "figura": "II.56",
+    "name": "Transito vietato ai motocicli",
+    "english": "No entry for motorcycles",
+    "tags": "motorcycle=no"
+  },
+  "IT:II.57": {
+    "figura": "II.57",
+    "name": "Transito vietato ai veicoli a braccia",
+    "english": "No entry for hand carts",
+    "tags": "hand_cart=no"
+  },
+  "IT:II.58": {
+    "figura": "II.58",
+    "name": "Transito vietato a tutti gli autoveicoli",
+    "english": "No entry for all motor vehicles",
+    "tags": "motorcar=no"
+  },
+  "IT:II.59": {
+    "figura": "II.59",
+    "name": "Transito vietato agli autobus",
+    "english": "No entry for buses",
+    "tags": "bus=no e tourist_bus=no"
+  },
+  "IT:II.60a": {
+    "figura": "II.60a",
+    "name": "Transito vietato ai veicoli di massa a pieno carico superiore a 3,5 tonnellate",
+    "english": "No entry for trucks (with a permissible maximum with more than 3.5 t)",
+    "tags": "hgv=no"
+  },
+  "IT:II.60b": {
+    "figura": "II.60b",
+    "name": "Transito vietato ai veicoli di massa a pieno carico superiore a ... tonnellate",
+    "english": "No entry for trucks with a permissible maximum with more than ... t",
+    "tags": "maxweightrating:hgv=* (il numero corrisponde al valore indicato sul segnale; usare il punto come separatore decimale)"
+  },
+  "IT:II.61": {
+    "figura": "II.61",
+    "name": "Transito vietato a tutti i veicoli a motore trainanti un rimorchio",
+    "english": "No entry for vehicles drawing a trailer",
+    "tags": "trailer=no"
+  },
+  "IT:II.62": {
+    "figura": "II.62",
+    "name": "Transito vietato alle macchine agricole",
+    "english": "No entry for tractors",
+    "tags": "agricultural=no"
+  },
+  "IT:II.63": {
+    "figura": "II.63",
+    "name": "Transito vietato ai veicoli che trasportano merci pericolose",
+    "english": "No entry for vehicles transporting dangerous goods",
+    "tags": "hazmat=no"
+  },
+  "IT:II.64a": {
+    "figura": "II.64a",
+    "name": "Transito vietato ai veicoli che trasportano esplosivi o prodotti facilmente infiammabili",
+    "english": "No entry for vehicles carrying explosives or readily inflammable substances",
+    "tags": "hazmat:explosive=no"
+  },
+  "IT:II.64b": {
+    "figura": "II.64b",
+    "name": "Transito vietato ai veicoli che trasportano prodotti suscettibili di contaminare l'acqua",
+    "english": "No entry for vehicles carrying goods capable of water pollution",
+    "tags": "hazmat:water=no"
+  },
+  "IT:II.65": {
+    "figura": "II.65",
+    "name": "Transito vietato ai veicoli aventi larghezza superiore a ... metri",
+    "english": "No entry for vehicles wider than the specified limit",
+    "tags": "maxwidth=*"
+  },
+  "IT:II.66": {
+    "figura": "II.66",
+    "name": "Transito vietato ai veicoli aventi altezza complessiva superiore a ... metri",
+    "english": "No entry for vehicles higher than the specified limit",
+    "tags": "maxheight=*"
+  },
+  "IT:II.67": {
+    "figura": "II.67",
+    "name": "Transito vietato ai veicoli, o a complessi di veicoli, aventi lunghezza superiore a ... metri",
+    "english": "No entry for vehicles or vehicle combinations longer than the specified limit",
+    "tags": "maxlength=*"
+  },
+  "IT:II.68": {
+    "figura": "II.68",
+    "name": "Transito vietato ai veicoli aventi una massa superiore a ... tonnellate",
+    "english": "No entry for vehicles heavier than the specified limit",
+    "tags": "maxweight=*"
+  },
+  "IT:II.69": {
+    "figura": "II.69",
+    "name": "Transito vietato ai veicoli aventi massa per asse superiore a ... tonnellate",
+    "english": "No entry for vehicles which immediate weight per axle is over the specified limit",
+    "tags": "maxaxleload=*"
+  },
+  "IT:II.70": {
+    "figura": "II.70",
+    "name": "Via libera",
+    "english": "End of all prohibitions",
+    "tags": ""
+  },
+  "IT:II.71": {
+    "figura": "II.71",
+    "name": "Fine limitazione di velocità",
+    "english": "End of speed limit",
+    "tags": "source:maxspeed=*"
+  },
+  "IT:II.72": {
+    "figura": "II.72",
+    "name": "Fine divieto di sorpasso",
+    "english": "End of overtaking prohibition",
+    "tags": ""
+  },
+  "IT:II.73": {
+    "figura": "II.73",
+    "name": "Fine divieto di sorpasso per i veicoli di massa a pieno carico superiore a 3,5 t",
+    "english": "End of overtaking prohibition for trucks",
+    "tags": ""
+  },
+  "IT:II.74": {
+    "figura": "II.74",
+    "name": "Divieto di sosta",
+    "english": "Parking prohibited",
+    "tags": "parking:side:restriction=no"
+  },
+  "IT:II.75": {
+    "figura": "II.75",
+    "name": "Divieto di fermata",
+    "english": "Standing and parking prohibited",
+    "tags": "parking:side:restriction=no_stopping"
+  },
+  "IT:II.76": {
+    "figura": "II.76",
+    "name": "Parcheggio",
+    "english": "Parking",
+    "tags": "amenity=parking"
+  },
+  "IT:II.77": {
+    "figura": "II.77",
+    "name": "Preavviso di parcheggio",
+    "english": "Advance warning of parking",
+    "tags": ""
+  },
+  "IT:II.78": {
+    "figura": "II.78",
+    "name": "Passo carrabile",
+    "english": "",
+    "tags": "parking:side:restriction=no"
+  },
+  "IT:II.79": {
+    "figura": "II.79",
+    "name": "Sosta consentita a particolare categoria",
+    "english": "Various parking exceptions",
+    "tags": ""
+  },
+  "IT:II.80a": {
+    "figura": "II.80a",
+    "name": "Direzione obbligatoria diritto",
+    "english": "Mandatory direction straight ahead",
+    "tags": "Relation:restrictionrestriction=only_straight_on"
+  },
+  "IT:II.80b": {
+    "figura": "II.80b",
+    "name": "Direzione obbligatoria a sinistra",
+    "english": "Turn left here",
+    "tags": "Relation:restrictionrestriction=only_left_turn"
+  },
+  "IT:II.80c": {
+    "figura": "II.80c",
+    "name": "Direzione obbligatoria a destra",
+    "english": "Turn right here",
+    "tags": "Relation:restrictionrestriction=only_right_turn"
+  },
+  "IT:II.80d": {
+    "figura": "II.80d",
+    "name": "Preavviso di direzione obbligatoria a destra",
+    "english": "Mandatory left turn",
+    "tags": "Relation:restrictionrestriction=only_right_turn"
+  },
+  "IT:II.80e": {
+    "figura": "II.80e",
+    "name": "Preavviso di direzione obbligatoria a sinistra",
+    "english": "Mandatory right turn",
+    "tags": "Relation:restrictionrestriction=only_left_turn"
+  },
+  "IT:II.81a": {
+    "figura": "II.81a",
+    "name": "Direzioni consentite destra e sinistra",
+    "english": "Mandatory right or left turn",
+    "tags": "Relation:restrictionrestriction=no_straight_on"
+  },
+  "IT:II.81b": {
+    "figura": "II.81b",
+    "name": "Direzioni consentite diritto e destra",
+    "english": "Mandatory direction straight ahead or right turn",
+    "tags": "Relation:restrictionrestriction=no_left_turn"
+  },
+  "IT:II.81c": {
+    "figura": "II.81c",
+    "name": "Direzioni consentite diritto e sinistra",
+    "english": "Mandatory direction straight ahead or left turn",
+    "tags": "Relation:restrictionrestriction=no_right_turn"
+  },
+  "IT:II.82a": {
+    "figura": "II.82a",
+    "name": "Passaggio obbligatorio a sinistra",
+    "english": "Pass by on the left-hand side",
+    "tags": ""
+  },
+  "IT:II.82b": {
+    "figura": "II.82b",
+    "name": "Passaggio obbligatorio a destra",
+    "english": "Pass by on the right-hand side",
+    "tags": ""
+  },
+  "IT:II.83": {
+    "figura": "II.83",
+    "name": "Passaggi consentiti",
+    "english": "Drive around",
+    "tags": ""
+  },
+  "IT:II.84": {
+    "figura": "II.84",
+    "name": "Rotatoria",
+    "english": "Compulsary Roundabout",
+    "tags": "junction=roundabout"
+  },
+  "IT:II.85": {
+    "figura": "II.85",
+    "name": "Limite minimo di velocità",
+    "english": "Compulsory minimum speed",
+    "tags": "minspeed=*"
+  },
+  "IT:II.86": {
+    "figura": "II.86",
+    "name": "Fine limite minimo di velocità",
+    "english": "End of compulsory minimum speed",
+    "tags": ""
+  },
+  "IT:II.87": {
+    "figura": "II.87",
+    "name": "Catene per neve obbligatorie",
+    "english": "Snow chains compulsory",
+    "tags": "snow_chains=required"
+  },
+  "IT:II.87a": {
+    "figura": "II.87a",
+    "name": "Fine catene per neve obbligatorie",
+    "english": "End of snow chains compulsory",
+    "tags": ""
+  },
+  "IT:II.88": {
+    "figura": "II.88",
+    "name": "Percorso pedonale",
+    "english": "Compulsory footpath",
+    "tags": "highway=footway"
+  },
+  "IT:II.89": {
+    "figura": "II.89",
+    "name": "Fine del percorso pedonale",
+    "english": "End footpath",
+    "tags": ""
+  },
+  "IT:II.90": {
+    "figura": "II.90",
+    "name": "Pista ciclabile",
+    "english": "Compulsory cycle track",
+    "tags": "highway=cycleway"
+  },
+  "IT:II.91": {
+    "figura": "II.91",
+    "name": "Fine pista ciclabile",
+    "english": "End Cycleway",
+    "tags": ""
+  },
+  "IT:II.92a": {
+    "figura": "II.92a",
+    "name": "Pista ciclabile contigua al marciapiede",
+    "english": "Footpath and cycleway",
+    "tags": "highway=cycleway, foot=designated, bicycle=designated ed opzionale segregated=yes"
+  },
+  "IT:II.93a": {
+    "figura": "II.93a",
+    "name": "Fine della pista ciclabile contigua al marciapiede",
+    "english": "End of footpath and cycleway",
+    "tags": ""
+  },
+  "IT:II.92b": {
+    "figura": "II.92b",
+    "name": "Percorso pedonale e ciclabile",
+    "english": "Footpath and cycleway",
+    "tags": "highway=cycleway, foot=designated, bicycle=designated ed opzionale segregated=no"
+  },
+  "IT:II.93b": {
+    "figura": "II.93b",
+    "name": "Fine del percorso pedonale e ciclabile",
+    "english": "End of footpath and cycleway",
+    "tags": ""
+  },
+  "IT:II.94": {
+    "figura": "II.94",
+    "name": "Percorso riservato ai quadrupedi da soma o da sella",
+    "english": "Compulsory track for riders on horseback",
+    "tags": "highway=bridleway"
+  },
+  "IT:II.95": {
+    "figura": "II.95",
+    "name": "Fine del percorso riservato ai quadrupedi da soma o da sella",
+    "english": "End of path for riders on animals",
+    "tags": ""
+  },
+  "IT:II.96": {
+    "figura": "II.96",
+    "name": "Alt - Dogana",
+    "english": "Prohibition of passing without stopping (Customs)",
+    "tags": "amenity=customs ed ogni barrier=* necessaria."
+  },
+  "IT:II.97a": {
+    "figura": "II.97a",
+    "name": "Confine di Stato tra paesi della Comunità Europea",
+    "english": "European state boundary",
+    "tags": ""
+  },
+  "IT:II.97b": {
+    "figura": "II.97b",
+    "name": "Preavviso di confine di Stato tra paesi della Comunità Europea",
+    "english": "Advance warning of european state boundary",
+    "tags": ""
+  },
+  "IT:II.98": {
+    "figura": "II.98",
+    "name": "Alt - Polizia",
+    "english": "Prohibition of passing without stopping (Police)",
+    "tags": ""
+  },
+  "IT:II.99": {
+    "figura": "II.99",
+    "name": "Alt - Stazione",
+    "english": "Prohibition of passing without stopping (Tollbooth)",
+    "tags": "barrier=toll_booth"
+  },
+  "IT:II.233": {
+    "figura": "II.233",
+    "name": "Segnale di preavviso di intersezione urbana",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.234": {
+    "figura": "II.234",
+    "name": "Segnale di preavviso di intersezione extraurbana",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.235": {
+    "figura": "II.235",
+    "name": "Segnale di preavviso di diramazione autostradale",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.236": {
+    "figura": "II.236",
+    "name": "segnale di preavviso di intersezioni ravvicinate urbane",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.237": {
+    "figura": "II.237",
+    "name": "segnale di preavviso di intersezioni ravvicinate extraurbane",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.238": {
+    "figura": "II.238",
+    "name": "segnale di preavviso di intersezione urbana rotatoria",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.239": {
+    "figura": "II.239",
+    "name": "segnale di preavviso di intersezione urbana, con divieto di transito per una categoria di veicoli su un ramo della intersezione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.240": {
+    "figura": "II.240",
+    "name": "segnale di preavviso di intersezione extraurbana con passaggio a livello su un ramo dell'intersezione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.241": {
+    "figura": "II.241",
+    "name": "segnale di preselezione urbano",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.242": {
+    "figura": "II.242",
+    "name": "segnale di preselezione urbano posto sopra la carreggiata",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.243": {
+    "figura": "II.243",
+    "name": "Segnale di preselezione extraurbano",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.244": {
+    "figura": "II.244",
+    "name": "segnale di preselezione urbano",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.245": {
+    "figura": "II.245",
+    "name": "Segnale di preselezione extraurbano",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.246": {
+    "figura": "II.246",
+    "name": "segnali di corsia con funzione di preavviso",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.247": {
+    "figura": "II.247",
+    "name": "segnali di corsia con funzioni di preselezione e di direzione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.248": {
+    "figura": "II.248",
+    "name": "segnale di direzione urbano",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.249": {
+    "figura": "II.249",
+    "name": "segnale di direzione extraurbano",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.251": {
+    "figura": "II.251",
+    "name": "segnali di corsia con funzioni di direzione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.250": {
+    "figura": "II.250",
+    "name": "segnali di corsia con funzione di direzione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.253": {
+    "figura": "II.253",
+    "name": "gruppo segnaletico unitario urbano monofilare",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.254": {
+    "figura": "II.254",
+    "name": "gruppo segnaletico unitario extraurbano",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.252": {
+    "figura": "II.252",
+    "name": "segnali di corsia con funzione di direzione con le modalità per l'utilizzo delle singole corsie",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.255": {
+    "figura": "II.255",
+    "name": "gruppo segnaletico unitario urbano bifilare",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.256": {
+    "figura": "II.256",
+    "name": "segnale identificazione itinerario internazionale",
+    "english": "",
+    "tags": "int_ref=*"
+  },
+  "IT:II.257": {
+    "figura": "II.257",
+    "name": "segnale identificazione autostrada",
+    "english": "",
+    "tags": "ref=*"
+  },
+  "IT:II.258": {
+    "figura": "II.258",
+    "name": "segnale identificazione strada statale",
+    "english": "",
+    "tags": "ref=*"
+  },
+  "IT:II.259": {
+    "figura": "II.259",
+    "name": "segnale identificazione strada provinciale",
+    "english": "",
+    "tags": "ref=*"
+  },
+  "IT:II.260": {
+    "figura": "II.260",
+    "name": "segnale di progressiva chilometrica",
+    "english": "",
+    "tags": "highway=milestone"
+  },
+  "IT:II.261": {
+    "figura": "II.261",
+    "name": "segnale identificazione strada comunale",
+    "english": "",
+    "tags": "ref=*"
+  },
+  "IT:II.262": {
+    "figura": "II.262",
+    "name": "segnale di progressiva ettometrica",
+    "english": "",
+    "tags": "highway=milestone"
+  },
+  "IT:II.263": {
+    "figura": "II.263",
+    "name": "progressiva distanziometrica autostradale",
+    "english": "",
+    "tags": "highway=milestone"
+  },
+  "IT:II.264": {
+    "figura": "II.264",
+    "name": "progressiva distanziometrica autostradale",
+    "english": "",
+    "tags": "highway=milestone"
+  },
+  "IT:II.265": {
+    "figura": "II.265",
+    "name": "progressiva distanziometrica integrata con segnale di conferma su strade extraurbane",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.266": {
+    "figura": "II.266",
+    "name": "progressiva distanziometrica per strada statale",
+    "english": "",
+    "tags": "highway=milestone ref=*"
+  },
+  "IT:II.267": {
+    "figura": "II.267",
+    "name": "progressiva distanziometrica per strada provinciale",
+    "english": "",
+    "tags": "highway=milestone ref=*"
+  },
+  "IT:II.268": {
+    "figura": "II.268",
+    "name": "progressiva distanziometrica per strada comunale",
+    "english": "",
+    "tags": "highway=milestone ref=*"
+  },
+  "IT:II.269": {
+    "figura": "II.269",
+    "name": "numero identificazione autostrada + freccia verticale con funzione di direzione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.270": {
+    "figura": "II.270",
+    "name": "numeri identificazione strada statale + freccia e strada comunale + freccia con funzione di direzione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.271": {
+    "figura": "II.271",
+    "name": "numero identificazione strada provinciale + freccia con funzione di direzione",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.272": {
+    "figura": "II.272",
+    "name": "Segnale di itinerario",
+    "english": "Itinerary sign",
+    "tags": ""
+  },
+  "IT:II.273": {
+    "figura": "II.273",
+    "name": "Inizio centro abitato",
+    "english": "Begin of city limits",
+    "tags": "Utilizzare traffic_sign=city_limit + name=* (nome del centro abitato)"
+  },
+  "IT:II.274": {
+    "figura": "II.274",
+    "name": "Fine centro abitato",
+    "english": "End of city limits",
+    "tags": "Utilizzare traffic_sign=city_limit + city_limit=end + name=* (nome del centro abitato)"
+  },
+  "IT:II.275": {
+    "figura": "II.275",
+    "name": "Inizio e fine regione",
+    "english": "Begin and end of region",
+    "tags": ""
+  },
+  "IT:II.276": {
+    "figura": "II.276",
+    "name": "Inizio e fine provincia",
+    "english": "Begin and end of province",
+    "tags": ""
+  },
+  "IT:II.277": {
+    "figura": "II.277",
+    "name": "Pronto soccorso",
+    "english": "First aid",
+    "tags": ""
+  },
+  "IT:II.278": {
+    "figura": "II.278",
+    "name": "Stazione",
+    "english": "Station",
+    "tags": ""
+  },
+  "IT:II.279": {
+    "figura": "II.279",
+    "name": "Polizia",
+    "english": "Police",
+    "tags": ""
+  },
+  "IT:II.280": {
+    "figura": "II.280",
+    "name": "Carabinieri",
+    "english": "Military police",
+    "tags": ""
+  },
+  "IT:II.281": {
+    "figura": "II.281",
+    "name": "Informazioni",
+    "english": "Informations",
+    "tags": ""
+  },
+  "IT:II.282": {
+    "figura": "II.282",
+    "name": "Ospedale",
+    "english": "Hospital",
+    "tags": ""
+  },
+  "IT:II.283": {
+    "figura": "II.283",
+    "name": "Comune",
+    "english": "City hall",
+    "tags": ""
+  },
+  "IT:II.284": {
+    "figura": "II.284",
+    "name": "Polizia municipale",
+    "english": "City police",
+    "tags": ""
+  },
+  "IT:II.285": {
+    "figura": "II.285",
+    "name": "Segnale di conferma",
+    "english": "Confirmatory sign",
+    "tags": ""
+  },
+  "IT:II.291": {
+    "figura": "II.291",
+    "name": "Segnale Nome Strada",
+    "english": "",
+    "tags": "name=*"
+  },
+  "IT:II.292": {
+    "figura": "II.292",
+    "name": "Segnale nome strada con senso unico",
+    "english": "",
+    "tags": "name=* oneway=yes"
+  },
+  "IT:II.293": {
+    "figura": "II.293",
+    "name": "Numero civico",
+    "english": "",
+    "tags": "addr:street=* addr:housenumber=*"
+  },
+  "IT:II.294": {
+    "figura": "II.294",
+    "name": "segnali turistici e di territorio",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.295": {
+    "figura": "II.295",
+    "name": "Segnale di localizzazione territoriale",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.297": {
+    "figura": "II.297",
+    "name": "Segnali di direzione per le industrie",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.296": {
+    "figura": "II.296",
+    "name": "Segnale di avvio zona industriale",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.298": {
+    "figura": "II.298",
+    "name": "Preavviso di informazioni turistico alberghiere",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.299": {
+    "figura": "II.299",
+    "name": "informazioni alberghiere",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.300": {
+    "figura": "II.300",
+    "name": "preavviso alberghiero",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.301": {
+    "figura": "II.301",
+    "name": "direzione alberghiera",
+    "english": "",
+    "tags": ""
+  },
+  "IT:II.302": {
+    "figura": "II.302",
+    "name": "Ospedale",
+    "english": "Hospital",
+    "tags": "amenity=hospital"
+  },
+  "IT:II.303": {
+    "figura": "II.303",
+    "name": "Attraversamento pedonale",
+    "english": "Pedestrian crossing",
+    "tags": "highway=crossing"
+  },
+  "IT:II.304": {
+    "figura": "II.304",
+    "name": "Scuolabus",
+    "english": "School bus (stop)",
+    "tags": ""
+  },
+  "IT:II.305": {
+    "figura": "II.305",
+    "name": "SOS",
+    "english": "Emergency phone",
+    "tags": "emergency=phone"
+  },
+  "IT:II.306": {
+    "figura": "II.306",
+    "name": "Sottopassaggio pedonale",
+    "english": "Pedestrian underpass",
+    "tags": "highway=footway tunnel=yes"
+  },
+  "IT:II.307": {
+    "figura": "II.307",
+    "name": "Sovrapassaggio pedonale",
+    "english": "Pedestrian overpass",
+    "tags": "highway=footway bridge=yes"
+  },
+  "IT:II.308": {
+    "figura": "II.308",
+    "name": "Rampa pedonale",
+    "english": "Pedestrian underpass without steps",
+    "tags": "highway=footway tunnel=yes"
+  },
+  "IT:II.309": {
+    "figura": "II.309",
+    "name": "Strada senza uscita",
+    "english": "No through road",
+    "tags": "noexit=yes"
+  },
+  "IT:II.310": {
+    "figura": "II.310",
+    "name": "Preavviso di strada senza uscita",
+    "english": "No through road on side road",
+    "tags": "noexit=yes"
+  },
+  "IT:II.311": {
+    "figura": "II.311",
+    "name": "Preavviso di strada senza uscita",
+    "english": "No through road on side road",
+    "tags": "noexit=yes"
+  },
+  "IT:II.312": {
+    "figura": "II.312",
+    "name": "Velocità consigliata",
+    "english": "Advisory speed",
+    "tags": "maxspeed:advisory=*"
+  },
+  "IT:II.313": {
+    "figura": "II.313",
+    "name": "Fine velocità consigliata",
+    "english": "End advisory speed",
+    "tags": "maxspeed:advisory=*"
+  },
+  "IT:II.314": {
+    "figura": "II.314",
+    "name": "Strada riservata ai veicoli a motore",
+    "english": "Motorroad (road for motor vehicles only)",
+    "tags": "motorroad=yes"
+  },
+  "IT:II.315": {
+    "figura": "II.315",
+    "name": "Fine strada riservata ai veicoli a motore",
+    "english": "End of motorroad (end of road for motor vehicles only)",
+    "tags": "motorroad=no"
+  },
+  "IT:II.316": {
+    "figura": "II.316",
+    "name": "Galleria",
+    "english": "Tunnel",
+    "tags": "tunnel=yes"
+  },
+  "IT:II.317": {
+    "figura": "II.317",
+    "name": "Ponte",
+    "english": "Bridge",
+    "tags": "bridge=yes"
+  },
+  "IT:II.318": {
+    "figura": "II.318",
+    "name": "Zona residenziale",
+    "english": "Home zone",
+    "tags": ""
+  },
+  "IT:II.319": {
+    "figura": "II.319",
+    "name": "Fine zona residenziale",
+    "english": "End of home zone",
+    "tags": ""
+  },
+  "IT:II.320": {
+    "figura": "II.320",
+    "name": "Area pedonale urbana",
+    "english": "Pedestrian zone",
+    "tags": "highway=pedestrian"
+  },
+  "IT:II.321": {
+    "figura": "II.321",
+    "name": "Fine area pedonale urbana",
+    "english": "End of pedestrian zone",
+    "tags": "highway=pedestrian"
+  },
+  "IT:II.322a": {
+    "figura": "II.322a",
+    "name": "Zona a traffico limitato",
+    "english": "Restricted vehicluar access zone",
+    "tags": "boundary=limited_traffic_zone"
+  },
+  "IT:II.322b": {
+    "figura": "II.322b",
+    "name": "Fine zona a traffico limitato",
+    "english": "End of restricted vehicluar access zone",
+    "tags": "boundary=limited_traffic_zone"
+  },
+  "IT:II.323a": {
+    "figura": "II.323a",
+    "name": "Zona a velocità limitata",
+    "english": "Maximum speed zone",
+    "tags": "maxspeed=30 zone:maxspeed=IT:30 maxspeed:type=IT:zone30"
+  },
+  "IT:II.323b": {
+    "figura": "II.323b",
+    "name": "Fine zona a velocità limitata",
+    "english": "End maximum speed zone",
+    "tags": ""
+  },
+  "IT:II.324": {
+    "figura": "II.324",
+    "name": "Attraversamento ciclabile",
+    "english": "Bicycle crossing",
+    "tags": "highway=crossing"
+  },
+  "IT:II.325": {
+    "figura": "II.325",
+    "name": "Svolta a sinistra semidiretta",
+    "english": "Route for making an indirect left turn",
+    "tags": ""
+  },
+  "IT:II.326": {
+    "figura": "II.326",
+    "name": "Svolta a sinistra indiretta",
+    "english": "Route for making an indirect left turn",
+    "tags": ""
+  },
+  "IT:II.327": {
+    "figura": "II.327",
+    "name": "Inversione di marcia",
+    "english": "Infrastructure for reversing (u-turn)",
+    "tags": ""
+  },
+  "IT:II.328": {
+    "figura": "II.328",
+    "name": "Piazzola su viabilità ordinaria",
+    "english": "Emergency stopping place",
+    "tags": "highway=emergency_bay"
+  },
+  "IT:II.329": {
+    "figura": "II.329",
+    "name": "Piazzola + SOS autostradale",
+    "english": "Emergency stopping place with emergency phone (on motorways)",
+    "tags": "highway=emergency_bay emergency=phone"
+  },
+  "IT:II.330": {
+    "figura": "II.330",
+    "name": "Transitabilità",
+    "english": "Road open or closed",
+    "tags": ""
+  },
+  "IT:II.337": {
+    "figura": "II.337",
+    "name": "Uso corsie",
+    "english": "Lanes usage (no trucks)",
+    "tags": "See Lanes"
+  },
+  "IT:II.338": {
+    "figura": "II.338",
+    "name": "Uso corsie",
+    "english": "Lanes usage (minimum speed)",
+    "tags": "See Lanes"
+  },
+  "IT:II.339": {
+    "figura": "II.339",
+    "name": "Uso corsie",
+    "english": "Lanes usage (bus lane)",
+    "tags": "See Lanes"
+  },
+  "IT:II.340": {
+    "figura": "II.340",
+    "name": "Uso corsie",
+    "english": "Lanes usage (bus lane)",
+    "tags": "See Lanes"
+  },
+  "IT:II.341": {
+    "figura": "II.341",
+    "name": "Variazione corsie disponibili",
+    "english": "Change in the number of lanes (2 -> 1)",
+    "tags": "lanes=* turn:lanes=*"
+  },
+  "IT:II.342": {
+    "figura": "II.342",
+    "name": "Variazione corsie disponibili",
+    "english": "Change in the number of lanes (1 -> 2)",
+    "tags": "lanes=* turn:lanes=*"
+  },
+  "IT:II.343": {
+    "figura": "II.343",
+    "name": "Variazione corsie disponibili",
+    "english": "Change in the number of lanes (3 -> 2)",
+    "tags": "lanes=* turn:lanes=*"
+  },
+  "IT:II.344": {
+    "figura": "II.344",
+    "name": "Variazione corsie disponibili",
+    "english": "Change in the number of lanes (2 -> 3)",
+    "tags": "lanes=* turn:lanes=*"
+  },
+  "IT:II.345": {
+    "figura": "II.345",
+    "name": "Inizio autostrada (sfondo verde) / inizio strada extraurbana principale (sfondo blu)",
+    "english": "Motorway (green background) / Expressway (blue background)",
+    "tags": ""
+  },
+  "IT:II.346": {
+    "figura": "II.346",
+    "name": "Fine autostrada (sfondo verde) / fine strada extraurbana principale (sfondo blu)",
+    "english": "End motorway (green background) / end expressway (blue background)",
+    "tags": ""
+  },
+  "IT:II.347": {
+    "figura": "II.347",
+    "name": "Preavviso di inizio autostrada (sfondo verde) / preavviso di inizio strada extraurbana principale (sfondo blu)",
+    "english": "Motorway ahead (green background) / Expressway ahead (blue background)",
+    "tags": ""
+  },
+  "IT:II.348": {
+    "figura": "II.348",
+    "name": "Senso unico parallelo",
+    "english": "One way",
+    "tags": "oneway=yes"
+  },
+  "IT:II.349": {
+    "figura": "II.349",
+    "name": "Senso unico frontale",
+    "english": "One way",
+    "tags": "oneway=yes"
+  },
+  "IT:II.350": {
+    "figura": "II.350",
+    "name": "Preavviso deviazione consigliata autocarri in transito",
+    "english": "Suggested detour for trucks ahead",
+    "tags": "route=detour"
+  },
+  "IT:II.351": {
+    "figura": "II.351",
+    "name": "Deviazione consigliata autocarri in transito",
+    "english": "Advised itinerary for heavy vehicles",
+    "tags": "route=detour"
+  },
+  "IT:II.352": {
+    "figura": "II.352",
+    "name": "Limiti di velocità generali",
+    "english": "General speed limits",
+    "tags": ""
+  },
+  "IT:II.353": {
+    "figura": "II.353",
+    "name": "Pronto soccorso",
+    "english": "First aid",
+    "tags": "emergency=yes"
+  },
+  "IT:II.354": {
+    "figura": "II.354",
+    "name": "Assistenza meccanica",
+    "english": "Breakdown service",
+    "tags": "craft=mechanic"
+  },
+  "IT:II.355": {
+    "figura": "II.355",
+    "name": "Telefono",
+    "english": "Telephone",
+    "tags": "amenity=telephone"
+  },
+  "IT:II.356": {
+    "figura": "II.356",
+    "name": "Rifornimento",
+    "english": "Filling station",
+    "tags": "amenity=fuel"
+  },
+  "IT:II.357": {
+    "figura": "II.357",
+    "name": "Rifornimento (verde)",
+    "english": "Filling station (green)",
+    "tags": "amenity=fuel"
+  },
+  "IT:II.358": {
+    "figura": "II.358",
+    "name": "Fermata autobus",
+    "english": "Bus stop",
+    "tags": "highway=bus_stop"
+  },
+  "IT:II.359": {
+    "figura": "II.359",
+    "name": "Fermata tram",
+    "english": "Tramway stop",
+    "tags": "railway=tram_stop"
+  },
+  "IT:II.360": {
+    "figura": "II.360",
+    "name": "Informazioni",
+    "english": "Informations",
+    "tags": "tourism=information information=office"
+  },
+  "IT:II.361": {
+    "figura": "II.361",
+    "name": "Ostello per la gioventù",
+    "english": "Youth hostel",
+    "tags": "tourism=hostel"
+  },
+  "IT:II.362": {
+    "figura": "II.362",
+    "name": "Area per picnic",
+    "english": "Picnic site",
+    "tags": "tourism=picnic_site"
+  },
+  "IT:II.363": {
+    "figura": "II.363",
+    "name": "Campeggio",
+    "english": "Camping and caravan site",
+    "tags": "tourism=camp_site"
+  },
+  "IT:II.364": {
+    "figura": "II.364",
+    "name": "Radio informazioni stradali",
+    "english": "Radio station giving traffic information",
+    "tags": ""
+  },
+  "IT:II.365": {
+    "figura": "II.365",
+    "name": "Motel",
+    "english": "Hotel or motel",
+    "tags": "tourism=hotel"
+  },
+  "IT:II.366": {
+    "figura": "II.366",
+    "name": "Bar",
+    "english": "Refreshments or cafeteria",
+    "tags": "amenity=bar"
+  },
+  "IT:II.367": {
+    "figura": "II.367",
+    "name": "Ristorante",
+    "english": "Restaurant",
+    "tags": "amenity=restaurant"
+  },
+  "IT:II.368": {
+    "figura": "II.368",
+    "name": "Parcheggio di scambio (bus)",
+    "english": "Park and ride (bus)",
+    "tags": "amenity=parking park_ride=bus"
+  },
+  "IT:II.369": {
+    "figura": "II.369",
+    "name": "Parcheggio di scambio (tram)",
+    "english": "Park and ride (tramway)",
+    "tags": "amenity=parking park_ride=tram"
+  },
+  "IT:II.370": {
+    "figura": "II.370",
+    "name": "Parcheggio di scambio (treno)",
+    "english": "Park and ride (railway)",
+    "tags": "amenity=parking park_ride=train"
+  },
+  "IT:II.371": {
+    "figura": "II.371",
+    "name": "Parcheggio di scambio (pedoni)",
+    "english": "Starting-point for walks",
+    "tags": "amenity=parking"
+  },
+  "IT:II.372": {
+    "figura": "II.372",
+    "name": "Auto su treno",
+    "english": "Motorail",
+    "tags": ""
+  },
+  "IT:II.373": {
+    "figura": "II.373",
+    "name": "Auto al seguito",
+    "english": "Motorail",
+    "tags": ""
+  },
+  "IT:II.374": {
+    "figura": "II.374",
+    "name": "Auto su nave",
+    "english": "Ferry",
+    "tags": ""
+  },
+  "IT:II.375": {
+    "figura": "II.375",
+    "name": "Taxi",
+    "english": "Taxi",
+    "tags": ""
+  },
+  "IT:II.376": {
+    "figura": "II.376",
+    "name": "Area di servizio",
+    "english": "Service area",
+    "tags": "amenity=fuel craft=mechanic amenity=restaurant"
+  },
+  "IT:II.377": {
+    "figura": "II.377",
+    "name": "Area attrezzata con impianti di scarico",
+    "english": "Caravan waste disposal site",
+    "tags": "amenity=sanitary_dump_station"
+  },
+  "IT:II.378": {
+    "figura": "II.378",
+    "name": "Polizia Stradale",
+    "english": "Road Police",
+    "tags": ""
+  },
+  "IT:II.379": {
+    "figura": "II.379",
+    "name": "Polizia di stato",
+    "english": "State Police",
+    "tags": ""
+  },
+  "IT:II.380": {
+    "figura": "II.380",
+    "name": "Carabinieri",
+    "english": "Military Police",
+    "tags": ""
+  },
+  "IT:II.381": {
+    "figura": "II.381",
+    "name": "Guardia di finanza",
+    "english": "Financial police",
+    "tags": ""
+  }
+}
