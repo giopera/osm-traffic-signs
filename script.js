@@ -11,7 +11,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const definitionsPath = 'data/IT.json';
 let signDefinitions = {};
 const trafficLayer = L.layerGroup().addTo(map);
-const overpassEndpoint = 'https://overpass-api.de/api/interpreter';
+const overpassEndpoint = 'https://overpass.private.coffee/api/interpreter';
 const hash = new L.Hash(map);
 
 function parseTrafficSign(value) {
