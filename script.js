@@ -95,15 +95,15 @@ function createMarkerIcon(parsedSigns) {
     .join('');
 
   const signCount = signs.length;
-  const singleSignHeight = 52;
+  const singleSignHeight = 10;
   const totalHeight = singleSignHeight * signCount;
 
   return L.divIcon({
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
-    iconSize: [52, totalHeight],
-    iconAnchor: [26, totalHeight / 2], // Centers the marker anchor
-    popupAnchor: [0, -totalHeight / 2],
+    iconSize: [10, totalHeight],
+    iconAnchor: [5, totalHeight],
+    popupAnchor: [0, -totalHeight],
   });
 }
 
