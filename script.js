@@ -2,7 +2,6 @@ const map = L.map('map', {
   zoomControl: true,
   tap: false,
 }).setView([43.72, 10.40], 6);
-const hash = new L.Hash(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
@@ -13,6 +12,7 @@ const definitionsPath = 'data/IT.json';
 let signDefinitions = {};
 const trafficLayer = L.layerGroup().addTo(map);
 const overpassEndpoint = 'https://overpass-api.de/api/interpreter';
+const hash = new L.Hash(map);
 
 function parseTrafficSign(value) {
   const tags = String(value).trim().split(';');
