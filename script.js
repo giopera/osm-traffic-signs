@@ -79,10 +79,12 @@ function createMarkerIcon(parsedSigns) {
       const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
 
       // Optional: If sign has a value (e.g. [30]), render a sub-badge or text overlay
+      /*
       const valueHtml = sign.value
         ? `<span class="sign-value-badge">${sign.value}</span>`
         : '';
-
+      */
+      const valueHtml = '';
       return `
         <div class="sign-wrapper">
           <img src="${iconUrl}" alt="${sign.code}" class="traffic-sign-img" />
