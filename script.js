@@ -1,44 +1,49 @@
-const map = L.map('map', {
-  zoomControl: true,
-  tap: false,
-  rotate: true,
-  rotateControl: {
-    position: 'topleft',
-    closeOnZeroBearing: false,
+const map = new maplibregl.Map({
+  container: 'map',
+  style: {
+    version: 8,
+    sources: {
+      osm: {
+        type: 'raster',
+        tiles: [
+          'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          'https://b.tile.openstreetmap.org/{z}/{x}/{y}.png',
+          'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        ],
+        tileSize: 256,
+        attribution: '&copy; OpenStreetMap contributors',
+      },
+    },
+    layers: [{
+      id: 'osm-tiles',
+      type: 'raster',
+      source: 'osm',
+    }],
   },
-  touchRotate: true,
-  shiftRotate: true,
-}).setView([43.72, 10.40], 6);
+  center: [10.4, 43.72],
+  zoom: 6,
+  bearing: 0,
+  pitch: 0,
+});
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; OpenStreetMap contributors',
-}).addTo(map);
+map.addControl(new maplibregl.NavigationControl({
+  showCompass: true,
+  showZoom: true,
+  visualizePitch: false,
+}), 'top-left');
 
-// 1. Listen for rotation events
-map.on('rotate', syncMapBearing);
-
-syncMapBearing();
+map.addControl(new maplibregl.FullscreenControl(), 'top-right');
 
 const definitionsPath = 'data/IT.json';
 const lastUpdatedEl = document.getElementById('last-updated');
 let signDefinitions = {};
-const trafficLayer = L.layerGroup().addTo(map);
 const overpassEndpoint = 'https://maps.mail.ru/osm/tools/overpass/api/interpreter';
-const hash = new L.Hash(map);
+const trafficMarkers = [];
+const elementStore = new Map();
+const overpassCache = [];
 
 let isFetchingOverpass = false;
-let pendingOverpassBounds = null;
-// Element store and cache: keep latest elements by OSM id and cache positive bbox results.
-const elementStore = new Map(); // key: `${type}-${id}` => element
-const overpassCache = []; // entries: { bounds: L.LatLngBounds, keys: Set<string> }
-
-
-// Sync map bearing to CSS custom property
-function syncMapBearing() {
-  const bearing = map.getBearing ? map.getBearing() : 0;
-  map.getContainer().style.setProperty('--map-bearing', `${bearing}deg`);
-}
+let pendingBounds = null;
 
 function parseTrafficSign(value) {
   const tags = String(value).trim().split(';');
@@ -72,26 +77,6 @@ function escapeSvg(value) {
     .replace(/>/g, '&gt;')
     .replace(/'/g, '&#39;')
     .replace(/"/g, '&quot;');
-}
-
-function buildSvgDataUrl(svg) {
-  const encoded = encodeURIComponent(svg)
-    .replace(/'/g, '%27')
-    .replace(/\(/g, '%28')
-    .replace(/\)/g, '%29');
-  return `data:image/svg+xml;charset=UTF-8,${encoded}`;
-}
-
-function createSignSvg(definition, value) {
-  if (!definition) {
-    return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><circle cx='60' cy='60' r='52' fill='#f8fafc' stroke='#9ca3af' stroke-width='10'/><text x='60' y='68' text-anchor='middle' font-family='Inter, sans-serif' font-size='16' fill='#4b5563'>Unknown</text></svg>`;
-  }
-
-  let svg = definition.svgTemplate;
-  if (value) {
-    svg = svg.replace(/{value}/g, escapeSvg(value));
-  }
-  return svg.replace(/{value}/g, '');
 }
 
 function getSvgDimensionsFromMarkup(svgText) {
@@ -156,62 +141,73 @@ function measureSvgDimensions(iconUrl) {
 }
 
 async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
-  const safeRotation = Number.isFinite(rotationAngle) ? Number(rotationAngle) : 180;
-  const effectiveRotation = safeRotation - 180;
-
-  // Use CSS calc() combining world rotation with map bearing
-  const rotationTransform = `
-    --world-rotation: ${effectiveRotation}deg;
-    transform: rotate(calc(var(--world-rotation) + var(--map-bearing, 0deg)));
-    transform-origin: center center;
-  `.trim();
-
   const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
-  const baseUrl = '/images/';
   const preferredWidth = 30;
+  const normalizedAngle = Number.isFinite(rotationAngle) ? Number(rotationAngle) : 0;
 
   const enhancedSigns = await Promise.all(signs.map(async (sign) => {
-    const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
+    const iconUrl = `/images/${sign.country}/${sign.code}.svg`;
     const { width, height } = await measureSvgDimensions(iconUrl);
     const ratio = width > 0 && height > 0 ? width / height : 1;
-    const renderedHeight = preferredWidth / ratio;
-
     return {
       ...sign,
       iconUrl,
       width: preferredWidth,
-      height: renderedHeight,
+      height: preferredWidth / ratio,
     };
   }));
 
   const totalHeight = enhancedSigns.reduce((total, sign) => total + sign.height + 2, 0) - 2;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'traffic-sign-marker';
+  wrapper.style.width = `${preferredWidth}px`;
+  wrapper.style.height = `${Math.max(totalHeight, preferredWidth)}px`;
+  wrapper.style.pointerEvents = 'auto';
+  wrapper.style.overflow = 'visible';
 
-  const imagesHtml = enhancedSigns
-    .map((sign) => `
-      <div class="sign-wrapper" style="width:${sign.width}px;height:${sign.height}px;">
-        <img src="${sign.iconUrl}" alt="${sign.code}" class="traffic-sign-img" style="width:${sign.width}px;height:${sign.height}px;" />
-      </div>
-    `)
-    .join('');
+  const stack = document.createElement('div');
+  stack.className = 'signpost-stack';
+  stack.style.display = 'flex';
+  stack.style.flexDirection = 'column';
+  stack.style.alignItems = 'center';
+  stack.style.gap = '2px';
+  stack.style.width = `${preferredWidth}px`;
 
-  return L.divIcon({
-    html: `<div class="signpost-stack" style="${rotationTransform}">${imagesHtml}</div>`,
-    className: 'traffic-sign-marker',
-    iconSize: [preferredWidth, totalHeight],
-    iconAnchor: [preferredWidth / 2, totalHeight / 2],
-    popupAnchor: [0, -totalHeight / 2],
-    rotationAngle: effectiveRotation,
+  enhancedSigns.forEach((sign) => {
+    const signWrap = document.createElement('div');
+    signWrap.className = 'sign-wrapper';
+    signWrap.style.width = `${sign.width}px`;
+    signWrap.style.height = `${sign.height}px`;
+    signWrap.style.display = 'flex';
+    signWrap.style.alignItems = 'center';
+    signWrap.style.justifyContent = 'center';
+
+    const img = document.createElement('img');
+    img.src = sign.iconUrl;
+    img.alt = sign.code;
+    img.className = 'traffic-sign-img';
+    img.style.width = `${sign.width}px`;
+    img.style.height = `${sign.height}px`;
+    img.style.display = 'block';
+    img.style.objectFit = 'contain';
+    img.style.filter = 'drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3))';
+    img.style.transform = `rotate(${normalizedAngle}deg)`;
+    img.style.transformOrigin = 'center center';
+
+    signWrap.appendChild(img);
+    stack.appendChild(signWrap);
   });
+
+  wrapper.appendChild(stack);
+  return wrapper;
 }
-
-
 
 function getElementLatLng(element) {
   if (element.type === 'node' && element.lat != null && element.lon != null) {
-    return [element.lat, element.lon];
+    return [element.lon, element.lat];
   }
   if (element.center && element.center.lat != null && element.center.lon != null) {
-    return [element.center.lat, element.center.lon];
+    return [element.center.lon, element.center.lat];
   }
   return null;
 }
@@ -243,7 +239,6 @@ function updateLastUpdatedDisplay(timestampValue) {
 }
 
 function fetchOverpassSigns(bounds) {
-  // TODO: Caching
   const bbox = [bounds.getSouth(), bounds.getWest(), bounds.getNorth(), bounds.getEast()].join(',');
   const query = `
 [out:json][timeout:25];
@@ -271,31 +266,34 @@ out center;
 }
 
 async function renderTrafficSigns(elements) {
-  trafficLayer.clearLayers();
+  trafficMarkers.forEach((marker) => marker.remove());
+  trafficMarkers.length = 0;
 
-  const markers = await Promise.all(elements.map(async (element) => {
+  for (const element of elements) {
     if (!element.tags || !element.tags.traffic_sign) {
-      return null;
+      continue;
     }
 
     const coords = getElementLatLng(element);
-    if (!coords) {
-      return null;
+    if (!coords || !Number.isFinite(coords[0]) || !Number.isFinite(coords[1])) {
+      continue;
     }
 
     const signTag = element.tags.traffic_sign;
     const parsed = parseTrafficSign(signTag);
     const parsedArr = Array.isArray(parsed) ? parsed : [parsed];
     const title = parsedArr.map(s => s.code).filter(Boolean).join(', ') || 'Traffic sign';
-    
-    const marker = L.marker(coords, {
-      icon: await createMarkerIcon(parsedArr, parseFloat(element.tags.direction)),
-      title: title,
-    });
+    const rawDirection = Number.parseFloat(element.tags.direction);
+    const safeDirection = Number.isFinite(rawDirection) ? rawDirection : 0;
+    const markerEl = await createMarkerIcon(parsedArr, safeDirection);
+    const marker = new maplibregl.Marker({
+      element: markerEl,
+      anchor: 'center',
+    })
+      .setLngLat(coords)
+      .addTo(map);
 
-    // Build a richer popup: title, raw tag, optional name, OSM link, and tags table
     const osmUrl = `https://www.openstreetmap.org/${element.type}/${element.id}`;
-
     let tagsTable = '<table class="tags-table" style="border-collapse:collapse;width:100%"><thead><tr><th style="text-align:left;border-bottom:1px solid #ddd;padding:4px">Key</th><th style="text-align:left;border-bottom:1px solid #ddd;padding:4px">Value</th></tr></thead><tbody>';
     Object.keys(element.tags).forEach((k) => {
       tagsTable += `<tr><td style="vertical-align:top;border-bottom:1px solid #f0f0f0;padding:4px">${escapeHtml(k)}</td><td style="vertical-align:top;border-bottom:1px solid #f0f0f0;padding:4px">${escapeHtml(element.tags[k])}</td></tr>`;
@@ -311,11 +309,15 @@ async function renderTrafficSigns(elements) {
       </div>
     `;
 
-    marker.bindPopup(popupHtml, { maxWidth: 480 });
-    return marker;
-  }));
+    const popup = new maplibregl.Popup({ maxWidth: '480px', closeButton: true })
+      .setHTML(popupHtml);
+    marker.setPopup(popup);
+    marker.getElement().addEventListener('click', () => {
+      marker.togglePopup();
+    });
 
-  markers.filter(Boolean).forEach((marker) => marker.addTo(trafficLayer));
+    trafficMarkers.push(marker);
+  }
 }
 
 function updateTrafficSigns(boundsParam) {
@@ -323,14 +325,12 @@ function updateTrafficSigns(boundsParam) {
     return;
   }
 
-  const bounds = (boundsParam && typeof boundsParam.getSouth === 'function')
-    ? boundsParam
-    : map.getBounds();
-  const reqBounds = L.latLngBounds(bounds);
+  const bounds = boundsParam || map.getBounds();
+  const reqBounds = new maplibregl.LngLatBounds([
+    [bounds.getWest(), bounds.getSouth()],
+    [bounds.getEast(), bounds.getNorth()],
+  ]);
 
-  // Check cache first: if we have a cached bbox that fully contains
-  // the requested bounds, use cached elements (filtered to the
-  // requested bounds) and skip Overpass.
   const cacheEntry = overpassCache.find((entry) => entry.bounds.contains(reqBounds));
   if (cacheEntry) {
     const cachedElements = [];
@@ -339,16 +339,14 @@ function updateTrafficSigns(boundsParam) {
       if (!el) return;
       const coords = getElementLatLng(el);
       if (!coords) return;
-      if (reqBounds.contains(L.latLng(coords[0], coords[1]))) {
-        cachedElements.push(el);
-      }
+      if (reqBounds.contains(coords)) cachedElements.push(el);
     });
     renderTrafficSigns(cachedElements);
     return;
   }
 
   if (isFetchingOverpass) {
-    pendingOverpassBounds = L.latLngBounds(reqBounds);
+    pendingBounds = reqBounds;
     return;
   }
 
@@ -366,7 +364,6 @@ function updateTrafficSigns(boundsParam) {
 
       const elements = data.elements;
       if (elements.length > 0) {
-        // Update elementStore with latest elements (deduplicate by type-id)
         const keys = [];
         elements.forEach((el) => {
           const key = `${el.type}-${el.id}`;
@@ -374,9 +371,10 @@ function updateTrafficSigns(boundsParam) {
           keys.push(key);
         });
 
-        // Save cache entry for these bounds
-        const cacheBounds = L.latLngBounds(reqBounds);
-        overpassCache.push({ bounds: cacheBounds, keys: new Set(keys) });
+        overpassCache.push({
+          bounds: new maplibregl.LngLatBounds(reqBounds),
+          keys: new Set(keys),
+        });
       }
 
       await renderTrafficSigns(elements);
@@ -386,10 +384,9 @@ function updateTrafficSigns(boundsParam) {
     })
     .finally(() => {
       isFetchingOverpass = false;
-      if (pendingOverpassBounds) {
-        const nextBounds = pendingOverpassBounds;
-        pendingOverpassBounds = null;
-        // Trigger the next fetch for the most recent bounds.
+      if (pendingBounds) {
+        const nextBounds = pendingBounds;
+        pendingBounds = null;
         updateTrafficSigns(nextBounds);
       }
     });
@@ -398,14 +395,12 @@ function updateTrafficSigns(boundsParam) {
 function debounce(fn, wait) {
   let timeout = null;
   return (...args) => {
-    if (timeout) {
-      clearTimeout(timeout);
-    }
+    if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => fn(...args), wait);
   };
 }
 
-const debouncedUpdateTrafficSigns = debounce(updateTrafficSigns, 750);
+const debouncedUpdateTrafficSigns = debounce(() => updateTrafficSigns(map.getBounds()), 750);
 map.on('moveend', debouncedUpdateTrafficSigns);
 
 function initialize() {
@@ -428,4 +423,4 @@ function initialize() {
     });
 }
 
-initialize();
+map.on('load', initialize);
