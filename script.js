@@ -74,7 +74,7 @@ function createSignSvg(definition, value) {
   return svg.replace(/{value}/g, '');
 }
 
-function createMarkerIcon(parsedSigns) {
+function createMarkerIcon(parsedSigns, rotationAngle = 0) {
   const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
 
   const baseUrl = '/images/';
@@ -103,6 +103,7 @@ function createMarkerIcon(parsedSigns) {
     iconSize: [2, totalHeight],
     iconAnchor: [1, 0],
     popupAnchor: [0, -totalHeight],
+    rotationAngle: rotationAngle,
   });
 }
 
@@ -163,7 +164,7 @@ function renderTrafficSigns(elements) {
     const title = parsedArr.map(s => s.code).filter(Boolean).join(', ') || 'Traffic sign';
 
     const marker = L.marker(coords, {
-      icon: createMarkerIcon(parsedArr),
+      icon: createMarkerIcon(parsedArr, element.tags.direction ? parseFloat(element.tags.direction) : 0),
       title: title,
     }).addTo(trafficLayer);
 
