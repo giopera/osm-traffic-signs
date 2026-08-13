@@ -159,13 +159,16 @@ function renderTrafficSigns(elements) {
 
     const signTag = element.tags.traffic_sign;
     const parsed = parseTrafficSign(signTag);
+    const parsedArr = Array.isArray(parsed) ? parsed : [parsed];
+    const title = parsedArr.map(s => s.code).filter(Boolean).join(', ') || 'Traffic sign';
+
     const marker = L.marker(coords, {
-      icon: createMarkerIcon(parsed),
-      title: parsed?.code || 'Traffic sign',
+      icon: createMarkerIcon(parsedArr),
+      title: title,
     }).addTo(trafficLayer);
 
     const popupParts = [
-      `<strong>${escapeHtml(parsed?.code || 'IT sign')}</strong>`,
+      `<strong>${escapeHtml(title || 'IT sign')}</strong>`,
       `<code>${escapeHtml(signTag)}</code>`,
     ];
 
@@ -180,9 +183,6 @@ function renderTrafficSigns(elements) {
 }
 
 function updateTrafficSigns(boundsParam) {
-  if (!signDefinitions || Object.keys(signDefinitions).length === 0) {
-    return;
-  }
   if (map.getZoom() < 15) {
     return;
   }
