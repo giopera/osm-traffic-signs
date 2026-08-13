@@ -137,6 +137,10 @@ function measureSvgDimensions(iconUrl) {
 }
 
 async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
+  const safeRotation = Number.isFinite(rotationAngle) ? Number(rotationAngle) : 180;
+  const effectiveRotation = safeRotation - 180;
+  const rotationTransform = `transform: rotate(${effectiveRotation}deg); transform-origin: center center;`;
+
   const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
   const baseUrl = '/images/';
   const preferredWidth = 30;
@@ -166,12 +170,12 @@ async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
     .join('');
 
   return L.divIcon({
-    html: `<div class="signpost-stack">${imagesHtml}</div>`,
+    html: `<div class="signpost-stack" style="${rotationTransform}">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
     iconSize: [preferredWidth, totalHeight],
-    iconAnchor: [preferredWidth / 2, totalHeight],
-    popupAnchor: [0, -totalHeight],
-    rotationAngle: rotationAngle,
+    iconAnchor: [preferredWidth / 2, totalHeight / 2],
+    popupAnchor: [0, -totalHeight / 2],
+    rotationAngle: effectiveRotation,
   });
 }
 
@@ -256,9 +260,9 @@ async function renderTrafficSigns(elements) {
     const parsed = parseTrafficSign(signTag);
     const parsedArr = Array.isArray(parsed) ? parsed : [parsed];
     const title = parsedArr.map(s => s.code).filter(Boolean).join(', ') || 'Traffic sign';
-
+    
     const marker = L.marker(coords, {
-      icon: await createMarkerIcon(parsedArr, element.tags.direction ? parseFloat(element.tags.direction) : 0),
+      icon: await createMarkerIcon(parsedArr, parseFloat(element.tags.direction)),
       title: title,
     });
 
