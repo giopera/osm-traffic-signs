@@ -215,12 +215,12 @@ function updateTrafficSigns(boundsParam) {
   }
 
   if (isFetchingOverpass) {
-    pendingOverpassBounds = reqBounds;
+    pendingOverpassBounds = L.latLngBounds(reqBounds);
     return;
   }
 
   isFetchingOverpass = true;
-  fetchOverpassSigns(bounds)
+  fetchOverpassSigns(reqBounds)
     .then((data) => {
       if (!Array.isArray(data.elements)) {
         return;
@@ -237,7 +237,8 @@ function updateTrafficSigns(boundsParam) {
         });
 
         // Save cache entry for these bounds
-        overpassCache.push({ bounds: reqBounds.clone(), keys: new Set(keys) });
+        const cacheBounds = L.latLngBounds(reqBounds);
+        overpassCache.push({ bounds: cacheBounds, keys: new Set(keys) });
       }
 
       renderTrafficSigns(elements);
