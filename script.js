@@ -189,7 +189,7 @@ async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
   const imagesHtml = enhancedSigns
     .map((sign) => `
       <div class="sign-wrapper" style="width:${sign.width}px;height:${sign.height}px;">
-        <object data="${sign.iconUrl}" alt="${sign.code}" class="traffic-sign-img" style="width:${sign.width}px;height:${sign.height}px;" type="image/svg+xml"/>
+        <img src="${sign.iconUrl}" alt="${sign.code}" class="traffic-sign-img" style="width:${sign.width}px;height:${sign.height}px;" />
       </div>
     `)
     .join('');
