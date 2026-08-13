@@ -75,34 +75,101 @@ function createSignSvg(definition, value) {
   return svg.replace(/{value}/g, '');
 }
 
-function createMarkerIcon(parsedSigns, rotationAngle = 0) {
+function getSvgDimensionsFromMarkup(svgText) {
+  if (!svgText || typeof svgText !== 'string') {
+    return { width: 1, height: 1 };
+  }
+
+  const widthMatch = svgText.match(/\swidth=["']?([0-9]+(?:\.[0-9]+)?)\s*(?:px)?["']?/i);
+  const heightMatch = svgText.match(/\sheight=["']?([0-9]+(?:\.[0-9]+)?)\s*(?:px)?["']?/i);
+  const viewBoxMatch = svgText.match(/viewBox=["']?([0-9.\-]+)\s+([0-9.\-]+)\s+([0-9.\-]+)\s+([0-9.\-]+)["']?/i);
+
+  if (widthMatch && heightMatch) {
+    const width = Number.parseFloat(widthMatch[1]);
+    const height = Number.parseFloat(heightMatch[1]);
+    if (Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) {
+      return { width, height };
+    }
+  }
+
+  if (viewBoxMatch) {
+    const [, , , width, height] = viewBoxMatch;
+    const parsedWidth = Number.parseFloat(width);
+    const parsedHeight = Number.parseFloat(height);
+    if (Number.isFinite(parsedWidth) && Number.isFinite(parsedHeight) && parsedWidth > 0 && parsedHeight > 0) {
+      return { width: parsedWidth, height: parsedHeight };
+    }
+  }
+
+  return { width: 1, height: 1 };
+}
+
+function measureSvgDimensions(iconUrl) {
+  return new Promise((resolve) => {
+    try {
+      const img = new Image();
+      img.decoding = 'async';
+      img.onload = () => {
+        const width = img.naturalWidth || img.width || 1;
+        const height = img.naturalHeight || img.height || 1;
+        resolve({ width, height });
+      };
+      img.onerror = async () => {
+        try {
+          const response = await fetch(iconUrl);
+          if (!response.ok) {
+            resolve({ width: 1, height: 1 });
+            return;
+          }
+          const svgText = await response.text();
+          resolve(getSvgDimensionsFromMarkup(svgText));
+        } catch (error) {
+          console.warn('Unable to measure SVG dimensions for', iconUrl, error);
+          resolve({ width: 1, height: 1 });
+        }
+      };
+      img.src = iconUrl;
+    } catch (error) {
+      console.warn('Unable to create image for', iconUrl, error);
+      resolve({ width: 1, height: 1 });
+    }
+  });
+}
+
+async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
   const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
-
   const baseUrl = '/images/';
+  const preferredWidth = 20;
 
-  const imagesHtml = signs
-    .map((sign) => {
-      const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
+  const enhancedSigns = await Promise.all(signs.map(async (sign) => {
+    const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
+    const { width, height } = await measureSvgDimensions(iconUrl);
+    const ratio = width > 0 && height > 0 ? width / height : 1;
+    const renderedHeight = preferredWidth / ratio;
 
-      const valueHtml = '';
-      return `
-        <div class="sign-wrapper">
-          <img src="${iconUrl}" alt="${sign.code}" class="traffic-sign-img" />
-          ${valueHtml}
-        </div>
-      `;
-    })
+    return {
+      ...sign,
+      iconUrl,
+      width: preferredWidth,
+      height: renderedHeight,
+    };
+  }));
+
+  const totalHeight = enhancedSigns.reduce((total, sign) => total + sign.height + 2, 0) - 2;
+
+  const imagesHtml = enhancedSigns
+    .map((sign) => `
+      <div class="sign-wrapper" style="width:${sign.width}px;height:${sign.height}px;">
+        <img src="${sign.iconUrl}" alt="${sign.code}" class="traffic-sign-img" style="width:${sign.width}px;height:${sign.height}px;" />
+      </div>
+    `)
     .join('');
-
-  const signCount = signs.length;
-  const singleSignWidth = 10;
-  const totalHeight = singleSignWidth * signCount;
 
   return L.divIcon({
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
-    iconSize: [singleSignWidth, totalHeight],
-    iconAnchor: [singleSignWidth / 2, 0],
+    iconSize: [preferredWidth, totalHeight],
+    iconAnchor: [preferredWidth / 2, 0],
     popupAnchor: [0, -totalHeight],
     rotationAngle: rotationAngle,
   });
@@ -172,17 +239,17 @@ out center;
   });
 }
 
-function renderTrafficSigns(elements) {
+async function renderTrafficSigns(elements) {
   trafficLayer.clearLayers();
 
-  elements.forEach((element) => {
+  const markers = await Promise.all(elements.map(async (element) => {
     if (!element.tags || !element.tags.traffic_sign) {
-      return;
+      return null;
     }
 
     const coords = getElementLatLng(element);
     if (!coords) {
-      return;
+      return null;
     }
 
     const signTag = element.tags.traffic_sign;
@@ -191,9 +258,9 @@ function renderTrafficSigns(elements) {
     const title = parsedArr.map(s => s.code).filter(Boolean).join(', ') || 'Traffic sign';
 
     const marker = L.marker(coords, {
-      icon: createMarkerIcon(parsedArr, element.tags.direction ? parseFloat(element.tags.direction) : 0),
+      icon: await createMarkerIcon(parsedArr, element.tags.direction ? parseFloat(element.tags.direction) : 0),
       title: title,
-    }).addTo(trafficLayer);
+    });
 
     // Build a richer popup: title, raw tag, optional name, OSM link, and tags table
     const osmUrl = `https://www.openstreetmap.org/${element.type}/${element.id}`;
@@ -214,7 +281,10 @@ function renderTrafficSigns(elements) {
     `;
 
     marker.bindPopup(popupHtml, { maxWidth: 480 });
-  });
+    return marker;
+  }));
+
+  markers.filter(Boolean).forEach((marker) => marker.addTo(trafficLayer));
 }
 
 function updateTrafficSigns(boundsParam) {
@@ -253,7 +323,7 @@ function updateTrafficSigns(boundsParam) {
 
   isFetchingOverpass = true;
   fetchOverpassSigns(reqBounds)
-    .then((data) => {
+    .then(async (data) => {
       const timestamp = data?.osm3s?.timestamp_osm_base;
       if (timestamp) {
         updateLastUpdatedDisplay(timestamp);
@@ -278,7 +348,7 @@ function updateTrafficSigns(boundsParam) {
         overpassCache.push({ bounds: cacheBounds, keys: new Set(keys) });
       }
 
-      renderTrafficSigns(elements);
+      await renderTrafficSigns(elements);
     })
     .catch((error) => {
       console.warn('Unable to load traffic sign markers from Overpass:', error);
