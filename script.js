@@ -168,18 +168,26 @@ function renderTrafficSigns(elements) {
       title: title,
     }).addTo(trafficLayer);
 
-    const popupParts = [
-      `<strong>${escapeHtml(title || 'IT sign')}</strong>`,
-      `<code>${escapeHtml(signTag)}</code>`,
-    ];
+    // Build a richer popup: title, raw tag, optional name, OSM link, and tags table
+    const osmUrl = `https://www.openstreetmap.org/${element.type}/${element.id}`;
 
-    if (element.tags.name) {
-      popupParts.push(`<div>${escapeHtml(element.tags.name)}</div>`);
-    }
+    let tagsTable = '<table class="tags-table" style="border-collapse:collapse;width:100%"><thead><tr><th style="text-align:left;border-bottom:1px solid #ddd;padding:4px">Key</th><th style="text-align:left;border-bottom:1px solid #ddd;padding:4px">Value</th></tr></thead><tbody>';
+    Object.keys(element.tags).forEach((k) => {
+      tagsTable += `<tr><td style="vertical-align:top;border-bottom:1px solid #f0f0f0;padding:4px">${escapeHtml(k)}</td><td style="vertical-align:top;border-bottom:1px solid #f0f0f0;padding:4px">${escapeHtml(element.tags[k])}</td></tr>`;
+    });
+    tagsTable += '</tbody></table>';
 
-    popupParts.push(`<div>${escapeHtml(element.type)} #${escapeHtml(String(element.id))}</div>`);
+    const popupHtml = `
+      <div class="traffic-popup">
+        <div style="font-weight:600;margin-bottom:6px">${escapeHtml(title || 'IT sign')}</div>
+        <div style="font-family:monospace;background:#f8f8f8;padding:6px;border-radius:4px;margin-bottom:6px">${escapeHtml(signTag)}</div>
+        ${element.tags.name ? `<div style="margin-bottom:6px">${escapeHtml(element.tags.name)}</div>` : ''}
+        <div style="margin-bottom:6px">${escapeHtml(element.type)} #${escapeHtml(String(element.id))} — <a href="${osmUrl}" target="_blank" rel="noopener noreferrer">view on OSM</a></div>
+        <div>${tagsTable}</div>
+      </div>
+    `;
 
-    marker.bindPopup(popupParts.join('<br>'));
+    marker.bindPopup(popupHtml, { maxWidth: 480 });
   });
 }
 
