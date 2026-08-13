@@ -9,6 +9,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const definitionsPath = 'data/IT.json';
+const lastUpdatedEl = document.getElementById('last-updated');
 let signDefinitions = {};
 const trafficLayer = L.layerGroup().addTo(map);
 const overpassEndpoint = 'https://overpass.private.coffee/api/interpreter';
@@ -115,6 +116,32 @@ function getElementLatLng(element) {
     return [element.center.lat, element.center.lon];
   }
   return null;
+}
+
+function formatItalianTimestamp(timestampValue) {
+  if (!timestampValue) {
+    return 'non disponibile';
+  }
+
+  const date = new Date(timestampValue);
+  if (Number.isNaN(date.getTime())) {
+    return 'non disponibile';
+  }
+
+  return new Intl.DateTimeFormat('it-IT', {
+    timeZone: 'Europe/Rome',
+    dateStyle: 'medium',
+    timeStyle: 'medium',
+  }).format(date);
+}
+
+function updateLastUpdatedDisplay(timestampValue) {
+  if (!lastUpdatedEl) {
+    return;
+  }
+
+  const value = formatItalianTimestamp(timestampValue);
+  lastUpdatedEl.textContent = `Dati OSM aggiornati: ${value}`;
 }
 
 function fetchOverpassSigns(bounds) {
@@ -227,6 +254,11 @@ function updateTrafficSigns(boundsParam) {
   isFetchingOverpass = true;
   fetchOverpassSigns(reqBounds)
     .then((data) => {
+      const timestamp = data?.osm3s?.timestamp_osm_base;
+      if (timestamp) {
+        updateLastUpdatedDisplay(timestamp);
+      }
+
       if (!Array.isArray(data.elements)) {
         return;
       }
