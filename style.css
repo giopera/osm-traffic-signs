@@ -40,8 +40,8 @@ body {
 /* Individual sign wrapper */
 .sign-wrapper {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 10px;
+  height: 10px;
 }
 
 /* SVG sign image */

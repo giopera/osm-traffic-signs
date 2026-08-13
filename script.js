@@ -101,7 +101,7 @@ function createMarkerIcon(parsedSigns) {
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
     iconSize: [2, totalHeight],
-    iconAnchor: [1, totalHeight],
+    iconAnchor: [1, 0],
     popupAnchor: [0, -totalHeight],
   });
 }
@@ -190,9 +190,6 @@ function updateTrafficSigns(boundsParam) {
   const bounds = (boundsParam && typeof boundsParam.getSouth === 'function')
     ? boundsParam
     : map.getBounds();
-
-  // Normalize requested bounds to a Leaflet LatLngBounds instance to
-  // ensure methods like `contains` and `clone` are available.
   const reqBounds = L.latLngBounds(bounds);
 
   // Check cache first: if we have a cached bbox that fully contains
