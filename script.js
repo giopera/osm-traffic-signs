@@ -170,7 +170,7 @@ async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
     className: 'traffic-sign-marker',
     iconSize: [preferredWidth, totalHeight],
     iconAnchor: [preferredWidth / 2, totalHeight],
-    popupAnchor: [-preferredWidth / 4, -totalHeight],
+    popupAnchor: [0, -totalHeight],
     rotationAngle: rotationAngle,
   });
 }
