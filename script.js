@@ -95,7 +95,7 @@ function createMarkerIcon(parsedSigns, rotationAngle = 0) {
     .join('');
 
   const signCount = signs.length;
-  const singleSignWidth = 20;
+  const singleSignWidth = 10;
   const totalHeight = singleSignWidth * signCount;
 
   return L.divIcon({
