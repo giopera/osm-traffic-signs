@@ -1,12 +1,24 @@
 const map = L.map('map', {
   zoomControl: true,
   tap: false,
+  rotate: true,
+  rotateControl: {
+    position: 'topleft',
+    closeOnZeroBearing: false,
+  },
+  touchRotate: true,
+  shiftRotate: true,
 }).setView([43.72, 10.40], 6);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '&copy; OpenStreetMap contributors',
 }).addTo(map);
+
+// 1. Listen for rotation events
+map.on('rotate', syncMapBearing);
+
+syncMapBearing();
 
 const definitionsPath = 'data/IT.json';
 const lastUpdatedEl = document.getElementById('last-updated');
@@ -20,6 +32,13 @@ let pendingOverpassBounds = null;
 // Element store and cache: keep latest elements by OSM id and cache positive bbox results.
 const elementStore = new Map(); // key: `${type}-${id}` => element
 const overpassCache = []; // entries: { bounds: L.LatLngBounds, keys: Set<string> }
+
+
+// Sync map bearing to CSS custom property
+function syncMapBearing() {
+  const bearing = map.getBearing ? map.getBearing() : 0;
+  map.getContainer().style.setProperty('--map-bearing', `${bearing}deg`);
+}
 
 function parseTrafficSign(value) {
   const tags = String(value).trim().split(';');
@@ -139,7 +158,13 @@ function measureSvgDimensions(iconUrl) {
 async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
   const safeRotation = Number.isFinite(rotationAngle) ? Number(rotationAngle) : 180;
   const effectiveRotation = safeRotation - 180;
-  const rotationTransform = `transform: rotate(${effectiveRotation}deg); transform-origin: center center;`;
+
+  // Use CSS calc() combining world rotation with map bearing
+  const rotationTransform = `
+    --world-rotation: ${effectiveRotation}deg;
+    transform: rotate(calc(var(--world-rotation) + var(--map-bearing, 0deg)));
+    transform-origin: center center;
+  `.trim();
 
   const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
   const baseUrl = '/images/';
@@ -178,6 +203,8 @@ async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
     rotationAngle: effectiveRotation,
   });
 }
+
+
 
 function getElementLatLng(element) {
   if (element.type === 'node' && element.lat != null && element.lon != null) {
