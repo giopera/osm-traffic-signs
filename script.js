@@ -139,7 +139,7 @@ function measureSvgDimensions(iconUrl) {
 async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
   const signs = Array.isArray(parsedSigns) ? parsedSigns : [parsedSigns];
   const baseUrl = '/images/';
-  const preferredWidth = 20;
+  const preferredWidth = 30;
 
   const enhancedSigns = await Promise.all(signs.map(async (sign) => {
     const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
