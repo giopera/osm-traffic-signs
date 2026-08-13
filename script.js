@@ -169,8 +169,8 @@ async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
     iconSize: [preferredWidth, totalHeight],
-    iconAnchor: [preferredWidth / 2, 0],
-    popupAnchor: [preferredWidth / 4, 0],
+    iconAnchor: [preferredWidth / 2, totalHeight],
+    popupAnchor: [-preferredWidth / 4, -totalHeight],
     rotationAngle: rotationAngle,
   });
 }
