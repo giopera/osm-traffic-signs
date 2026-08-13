@@ -100,8 +100,8 @@ function createMarkerIcon(parsedSigns, rotationAngle = 0) {
   return L.divIcon({
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
-    iconSize: [2, totalHeight],
-    iconAnchor: [1, 0],
+    iconSize: [10, totalHeight],
+    iconAnchor: [5, 0],
     popupAnchor: [0, -totalHeight],
     rotationAngle: rotationAngle,
   });
