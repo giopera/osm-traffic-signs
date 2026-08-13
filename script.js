@@ -12,7 +12,7 @@ const definitionsPath = 'data/IT.json';
 const lastUpdatedEl = document.getElementById('last-updated');
 let signDefinitions = {};
 const trafficLayer = L.layerGroup().addTo(map);
-const overpassEndpoint = 'https://overpass.private.coffee/api/interpreter';
+const overpassEndpoint = 'https://maps.mail.ru/osm/tools/overpass/api/interpreter';
 const hash = new L.Hash(map);
 
 let isFetchingOverpass = false;
