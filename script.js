@@ -95,14 +95,14 @@ function createMarkerIcon(parsedSigns, rotationAngle = 0) {
     .join('');
 
   const signCount = signs.length;
-  const singleSignHeight = 5;
-  const totalHeight = singleSignHeight * signCount;
+  const singleSignWidth = 20;
+  const totalHeight = singleSignWidth * signCount;
 
   return L.divIcon({
     html: `<div class="signpost-stack">${imagesHtml}</div>`,
     className: 'traffic-sign-marker',
-    iconSize: [10, totalHeight],
-    iconAnchor: [5, 0],
+    iconSize: [singleSignWidth, totalHeight],
+    iconAnchor: [singleSignWidth / 2, 0],
     popupAnchor: [0, -totalHeight],
     rotationAngle: rotationAngle,
   });

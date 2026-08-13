@@ -56,21 +56,26 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  width: 20px;
 }
 
 /* Individual sign wrapper */
 .sign-wrapper {
   position: relative;
   width: 20px;
-  height: 20px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* SVG sign image */
 .traffic-sign-img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain;
   display: block;
+  aspect-ratio: 1 / 1;
   /* Dropshadow to make signs pop over map tiles */
   filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.3));
 }
