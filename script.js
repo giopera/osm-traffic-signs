@@ -180,10 +180,9 @@ function renderTrafficSigns(elements) {
     const popupHtml = `
       <div class="traffic-popup">
         <div style="font-weight:600;margin-bottom:6px">${escapeHtml(title || 'IT sign')}</div>
-        <div style="font-family:monospace;background:#f8f8f8;padding:6px;border-radius:4px;margin-bottom:6px">${escapeHtml(signTag)}</div>
         ${element.tags.name ? `<div style="margin-bottom:6px">${escapeHtml(element.tags.name)}</div>` : ''}
-        <div style="margin-bottom:6px">${escapeHtml(element.type)} #${escapeHtml(String(element.id))} — <a href="${osmUrl}" target="_blank" rel="noopener noreferrer">view on OSM</a></div>
         <div>${tagsTable}</div>
+        <div style="margin-bottom:6px"><a href="${osmUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(element.type)} #${escapeHtml(String(element.id))}</a></div>
       </div>
     `;
 
