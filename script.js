@@ -171,11 +171,16 @@ async function createMarkerIcon(parsedSigns, rotationAngle = 0) {
   const preferredWidth = 30;
 
   const enhancedSigns = await Promise.all(signs.map(async (sign) => {
-    const iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
+    let iconUrl = `${baseUrl}${sign.country}/${sign.code}.svg`;
     const { width, height } = await measureSvgDimensions(iconUrl);
     const ratio = width > 0 && height > 0 ? width / height : 1;
     const renderedHeight = preferredWidth / ratio;
-
+    const response = await fetch(iconUrl, {
+      method: "HEAD",
+    });
+    if (!response.ok){
+      iconUrl = `${baseUrl}${sign.country}/yes.svg`;
+    }
     return {
       ...sign,
       iconUrl,
