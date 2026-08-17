@@ -248,9 +248,7 @@ function fetchOverpassSigns(bounds) {
   const query = `
 [out:json][timeout:25];
 (
-  node["traffic_sign"~"^IT:"](${bbox});
-  way["traffic_sign"~"^IT:"](${bbox});
-  relation["traffic_sign"~"^IT:"](${bbox});
+  nwr["traffic_sign"](${bbox});
 );
 out center;
 `;
